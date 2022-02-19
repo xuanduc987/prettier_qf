@@ -1,0 +1,1 @@
+set quickfixtextfunc=pretty_qf#quickfixtextfunc
