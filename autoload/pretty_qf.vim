@@ -26,7 +26,13 @@ function! pretty_qf#quickfixtextfunc(info) abort
     endif
     let sign = get(g:pretty_qf_signs, item.type, ' ')
 
-    let filepath = bufname(item.bufnr)->fnamemodify(':p:~:.')->pathshorten(2)
+    let filepath = bufname(item.bufnr)->fnamemodify(':p:~:.')
+    if has('patch-8.2.1741')
+      let filepath = pathshorten(filepath, 2)
+    else
+      let filepath = pathshorten(filepath)
+    endif
+
     if item.lnum
       let loc = filepath.':'.item.lnum
     else
