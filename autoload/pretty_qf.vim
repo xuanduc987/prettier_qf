@@ -6,6 +6,7 @@ let g:pretty_qf_signs_default = {
   \ }
 
 let g:pretty_qf_signs = get(g:, 'pretty_qf_signs', g:pretty_qf_signs_default)
+let g:pretty_qf_shorten_path = get(g:, 'pretty_qf_shorten_path', 1)
 
 let s:hidden_sign = '>$<'
 
@@ -27,10 +28,13 @@ function! pretty_qf#quickfixtextfunc(info) abort
     let sign = get(g:pretty_qf_signs, item.type, ' ')
 
     let filepath = bufname(item.bufnr)->fnamemodify(':p:~:.')
-    if has('patch-8.2.1741')
-      let filepath = pathshorten(filepath, 2)
-    else
-      let filepath = pathshorten(filepath)
+
+    if g:pretty_qf_shorten_path
+      if has('patch-8.2.1741')
+        let filepath = pathshorten(filepath, 2)
+      else
+        let filepath = pathshorten(filepath)
+      endif
     endif
 
     if item.lnum
