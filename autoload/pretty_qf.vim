@@ -50,7 +50,7 @@ function! pretty_qf#quickfixtextfunc(info) abort
     if len > pad_len
       let pad_len = len
     endif
-    call add(lines, #{ sign: sign, loc: loc, text: text })
+    let lines = add(lines, #{ sign: sign, loc: loc, text: text })
   endfor
   return map(
     \ lines,
